@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Encryption</title>
+</head>
+<body>
+    <h2>Property Encryption</h2>
+    
+    <form id="encryptionForm">
+        <label for="propertyName">Property Name:</label>
+        <input type="text" id="propertyName" required><br><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" required><br><br>
+
+        <button type="submit">Encrypt</button>
+    </form>
+
+    <h3>Encrypted Data</h3>
+    <pre id="encryptedData"></pre>
+
+    <script>
+        document.getElementById('encryptionForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const propertyName = document.getElementById('propertyName').value;
+            const password = document.getElementById('password').value;
+
+            fetch('http://127.0.0.1:5000/encrypt', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    property_name: propertyName,
+                    password: password,
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Display the encrypted data
+                document.getElementById('encryptedData').textContent = JSON.stringify(data, null, 2);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - UrbanMint DApp</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(145deg, #0f0f0f, #1a1a1a);
+      color: #fff;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .top-bar {
+      width: 100%;
+      background-color: #000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #ffc107;
+      text-decoration: none;
+    }
+
+    .logo i {
+      margin-right: 10px;
+    }
+
+    .top-bar .title {
+      font-size: 1.5rem;
+      color: #ffc107;
+      font-weight: bold;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 90%;
+      max-width: 1200px;
+      flex: 1;
+    }
+
+    .rules-section {
+      width: 45%;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .rule-card {
+      background-color: rgba(255, 255, 255, 0.05);
+      padding: 15px 20px;
+      border-radius: 10px;
+      border-left: 5px solid #ffc107;
+      transition: 0.3s ease;
+    }
+
+    .rule-card:hover {
+      background-color: rgba(255, 193, 7, 0.1);
+      box-shadow: 0 0 15px rgba(255, 193, 7, 0.4);
+      transform: scale(1.02);
+    }
+
+    .divider {
+      width: 2px;
+      height: 350px;
+      background-color: #ffc107;
+      margin: 0 40px;
+    }
+
+    .login-box {
+      background-color: rgba(255, 255, 255, 0.07);
+      padding: 30px;
+      border-radius: 15px;
+      width: 350px;
+      box-shadow: 0 0 15px rgba(255, 193, 7, 0.3);
+    }
+
+    .login-box h3 {
+      color: #ffc107;
+      margin-bottom: 20px;
+      text-align: center;
+      text-transform: uppercase;
+      font-size: 1.6rem;
+      letter-spacing: 1px;
+    }
+
+    .form-control {
+      margin-bottom: 15px;
+      background-color: #222;
+      border: 1px solid #444;
+      color: #fff;
+    }
+
+    .btn-warning {
+      width: 100%;
+      border-radius: 25px;
+      font-weight: bold;
+    }
+
+    .register-link {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 0.9rem;
+    }
+
+    .register-link a {
+      color: #ffc107;
+      text-decoration: none;
+    }
+
+    .register-link a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 992px) {
+      .container {
+        flex-direction: column;
+      }
+      .divider {
+        display: none;
+      }
+      .rules-section,
+      .login-box {
+        width: 90%;
+        margin-bottom: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <a href="#" class="logo"><i class="fas fa-cube"></i>UrbanMint DApp</a>
+    <div class="title">User Login</div>
+  </div>
+
+  <div class="container">
+    <!-- Rules Section -->
+    <div class="rules-section">
+      <div class="rule-card">📝 Ensure you have a verified UrbanMint ID before login.</div>
+      <div class="rule-card">🔐 Your password must be at least 8 characters.</div>
+      <div class="rule-card">👤 Use your registered username to login.</div>
+      <div class="rule-card">⚠️ Multiple failed attempts may lead to temporary block.</div>
+    </div>
+
+    <!-- Divider -->
+    <div class="divider"></div>
+
+    <!-- Login Box -->
+    <div class="login-box">
+      <h3>Login</h3>
+      <!-- Add your image here -->
+      <img src="f95d22789623dc3ce6a76e793ff752b5.jpg" alt="UrbanMint Logo" style="width: 100px; height: auto; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"/>
+      <form id="loginForm">
+        <input type="text" class="form-control" id="username" placeholder="Username" required />
+        <input type="password" class="form-control" id="password" placeholder="Password" required />
+        <button type="submit" class="btn btn-warning mt-3" id="loginBtn">Login</button>
+      </form>
+      <div class="register-link mt-2">
+        Don’t have an account? <a href="register.html">Register here</a>
+      </div>
+    </div>
+    
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value;
+
+      const storedUsers = JSON.parse(localStorage.getItem("urbanmint_users")) || [];
+      const user = storedUsers.find(user => user.username === username && user.password === password);
+
+      if (user) {
+        alert("Login successful!");
+        window.location.href = "index.html"; // Redirect to your DApp's homepage
+      } else {
+        alert("Invalid username or password.");
+      }
+    });
+  </script>
+
+</body>
+</html>

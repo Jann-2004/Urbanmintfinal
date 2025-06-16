@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>UrbanMint DApp</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap 5 CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Font Awesome for icons (if needed later) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <!-- Custom CSS -->
+  <style>
+    body {
+      background: linear-gradient(145deg, #0f0f0f, #1a1a1a);
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    /* Navbar */
+    .navbar {
+      background-color: #000;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .navbar-brand {
+      display: flex;
+      align-items: center;
+      color: #ffc107;
+      font-size: 1.8rem;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .navbar-btns button {
+      background-color: #ffc107;
+      color: #000;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 25px;
+      margin-left: 10px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .navbar-btns button:hover {
+      background-color: #fff;
+      color: #ffc107;
+      border: 1px solid #ffc107;
+    }
+
+    h4 {
+      color: #ffc107;
+      font-weight: bold;
+      margin-top: 30px;
+    }
+
+    #step1, #step2 {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    #step1 button, #step2 button {
+      background-color: #ffc107;
+      color: #000;
+      border: none;
+      padding: 10px 30px;
+      border-radius: 25px;
+      margin: 10px;
+      font-weight: bold;
+      transition: 0.3s ease;
+    }
+
+    #step1 button:hover, #step2 button:hover {
+      background-color: #fff;
+      color: #ffc107;
+      border: 1px solid #ffc107;
+    }
+
+    .property-card {
+      background-color: #1c1c1c;
+      border: 1px solid #ffc107;
+      border-radius: 15px;
+      padding: 20px;
+      color: #ffc107;
+      box-shadow: 0 4px 8px rgba(255, 215, 0, 0.1);
+      transition: transform 0.2s;
+      text-align: center;
+    }
+
+    .property-card:hover {
+      transform: scale(1.05);
+    }
+
+    .property-card button {
+      background-color: #ffc107;
+      color: #000;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 20px;
+      font-weight: bold;
+      transition: 0.3s ease;
+    }
+
+    .property-card button:hover {
+      background-color: #fff;
+      color: #ffc107;
+      border: 1px solid #ffc107;
+    }
+
+    /* LOGO */
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #ffc107;
+    }
+
+    .logo i {
+      margin-right: 10px;
+    }
+
+    /* ✨ Fix text overflow inside cards */
+    .property-card h5,
+    .property-card p {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+  </style>
+</head>
+
+<body class="container py-5">
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo"><i class="fas fa-cube"></i>UrbanMint DApp</div>
+    
+    <div class="navbar-btns">
+      <button onclick="connectMetaMask()">Connect</button>
+      <button id="logoutBtn" onclick="showLogoutModal()" style="display: none;">Logout</button>
+      <button onclick="loadPurchasedProperties()">Purchased</button>
+      <button onclick="window.location.href='review.html'">Reviews</button>
+    </div>
+  </nav>
+
+  <!-- Step 1: City Selection -->
+  <div id="step1">
+    <h4>Select a City</h4>
+    <button onclick="selectCity('Mumbai')">Mumbai</button>
+    <button onclick="selectCity('Delhi')">Delhi</button>
+    <button onclick="selectCity('Bangalore')">Bangalore</button>
+  </div>
+
+  <!-- Step 2: Property Type Selection -->
+  <div id="step2" style="display: none;">
+    <h4>Select Property Type</h4>
+    <button onclick="selectPropertyType('Villa')">Villa</button>
+    <button onclick="selectPropertyType('Land')">Land</button>
+    <button onclick="selectPropertyType('Commercial')">Commercial</button>
+  </div>
+
+  <!-- Step 3: Auto-generated Property Cards -->
+  <div id="step3" style="display: none;">
+    <h4 class="text-center">Suggested Properties</h4>
+    <div id="autoPropertyCards" class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+      <!-- Cards go here -->
+    </div>
+  </div>
+
+  <!-- Available Properties -->
+  <h4>Available Properties</h4>
+  <div id="propertyList"></div>
+
+  <!-- Hidden Inputs -->
+  <input type="hidden" id="selectedCity">
+  <input type="hidden" id="selectedType">
+
+  <!-- Purchased Properties Modal -->
+  <div class="modal fade" id="purchasedModal" tabindex="-1" aria-labelledby="purchasedLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content bg-dark text-warning">
+        <div class="modal-header">
+          <h5 class="modal-title" id="purchasedLabel">Purchased Properties</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="purchasedPropertyList"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Logout Modal -->
+  <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content bg-dark text-warning">
+        <div class="modal-header">
+          <h5 class="modal-title" id="logoutModalLabel">Confirm Logout</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">Are you sure you want to logout?</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-warning" onclick="logout()">Logout</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

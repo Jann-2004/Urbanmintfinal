@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Future Developments | UrbanMint DApp</title>
+
+  <!-- Bootstrap CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <style>
+    body {
+      background-color: #121212;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .hero {
+      background-color: #1e1e1e;
+      padding: 60px 20px;
+      text-align: center;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .hero h1 {
+      background: linear-gradient(90deg, gold, orange, gold);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+      font-size: 3rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: #ccc;
+    }
+
+    .section-title {
+      color: gold;
+      font-weight: bold;
+      margin-top: 40px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .plan-block {
+      background-color: #1f1f1f;
+      border: 2px solid gold;
+      padding: 30px;
+      margin: 20px auto;
+      border-radius: 12px;
+      width: 80%;
+      text-align: center;
+      font-weight: 500;
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.1);
+      transition: transform 0.3s ease;
+      animation: fadeInUp 0.8s ease-in-out;
+    }
+
+    .plan-block:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 25px rgba(255, 215, 0, 0.3);
+    }
+
+    .btn-back {
+      background-color: transparent;
+      border: 2px solid gold;
+      color: gold;
+      font-weight: bold;
+      transition: 0.3s ease;
+      padding: 10px 20px;
+      border-radius: 50px;
+    }
+
+    .btn-back:hover {
+      background-color: gold;
+      color: black;
+    }
+
+    .icon-home {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      z-index: 1000;
+      font-size: 1.8rem;
+      color: gold;
+      transition: transform 0.3s ease;
+    }
+
+    .icon-home:hover {
+      transform: scale(1.2);
+      color: #ffd700;
+    }
+
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    @media (max-width: 768px) {
+      .plan-block {
+        width: 95%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Home Icon (Top Right) -->
+  <a href="home.html" class="icon-home" title="Go to Home">
+    <i class="fas fa-home"></i>
+  </a>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Future Developments of UrbanMint DApp</h1>
+    <p>Exciting Plans to Improve the Platform</p>
+  </section>
+
+  <!-- Future Roadmap -->
+  <div class="container my-5">
+    <h2 class="section-title"><i class="fa-solid fa-cogs"></i> Our Roadmap</h2>
+
+    <div class="plan-block">
+      <h4>Phase 1: Launch on Ethereum Mainnet</h4>
+      <p>Make UrbanMint a fully operational DApp on Ethereum's mainnet with real property transactions.</p>
+    </div>
+
+    <div class="plan-block">
+      <h4>Phase 2: Real Estate Partnerships</h4>
+      <p>Collaborate with real estate companies to provide authentic and vast listings directly on-chain.</p>
+    </div>
+
+    <div class="plan-block">
+      <h4>Phase 3: AI-Powered Suggestions</h4>
+      <p>Use artificial intelligence to recommend properties tailored to user preferences and behaviors.</p>
+    </div>
+
+    <div class="plan-block">
+      <h4>Phase 4: Virtual 3D Property Tours</h4>
+      <p>Integrate immersive virtual reality tours for properties using WebGL or third-party APIs.</p>
+    </div>
+
+    <div class="plan-block">
+      <h4>Phase 5: Tokenized Ownership</h4>
+      <p>Introduce fractional ownership using real estate NFTs and smart contracts.</p>
+    </div>
+  </div>
+
+  <!-- Back Button -->
+  <div class="container text-center my-4">
+    <a href="about.html" class="btn btn-back">
+      <i class="fas fa-arrow-left me-2"></i> Back to About Us
+    </a>
+  </div>
+
+</body>
+</html>

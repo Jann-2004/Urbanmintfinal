@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register - UrbanMint DApp</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(145deg, #0f0f0f, #1a1a1a);
+      color: #fff;
+    }
+
+    .navbar {
+      background-color: #000;
+      padding: 15px 30px;
+      box-shadow: 0 2px 10px rgba(255, 193, 7, 0.2);
+    }
+
+    .navbar-brand {
+      font-weight: bold;
+      font-size: 24px;
+      color: #ffc107;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-link {
+      color: #ffc107 !important;
+      font-weight: bold;
+    }
+
+    .register-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 50px 30px;
+      min-height: 90vh;
+    }
+
+    .rules-section {
+      flex: 1;
+      max-width: 500px;
+      color: #ffc107;
+      padding-right: 30px;
+    }
+
+    .rules-section h4 {
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    .rules-section ul {
+      list-style-type: none;
+      padding-left: 0;
+      font-size: 1.1rem;
+    }
+
+    .rules-section ul li {
+      margin-bottom: 15px;
+    }
+
+    .divider {
+      width: 2px;
+      background-color: #ffc107;
+      height: 100%;
+      margin: 0 40px;
+    }
+
+    .register-box {
+      background-color: rgba(255, 255, 255, 0.05);
+      padding: 40px;
+      border-radius: 15px;
+      width: 100%;
+      max-width: 450px;
+      box-shadow: 0 0 25px rgba(255, 193, 7, 0.3);
+      text-align: center;
+    }
+
+    .register-box h2 {
+      color: #ffc107;
+      margin-bottom: 30px;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    .form-control {
+      margin-bottom: 20px;
+      background-color: #222;
+      border: 1px solid #444;
+      color: #fff;
+      font-size: 15px;
+      border-radius: 8px;
+      padding: 12px 15px;
+    }
+
+    .form-control::placeholder {
+      color: #ccc;
+      opacity: 0.9;
+    }
+
+    .form-control:focus {
+      border-color: #ffc107;
+      outline: none;
+      box-shadow: 0 0 5px rgba(255, 193, 7, 0.6);
+    }
+
+    .btn-warning {
+      border-radius: 25px;
+      font-weight: bold;
+      font-size: 16px;
+      padding: 10px 0;
+      width: 100%;
+    }
+
+    .login-link {
+      margin-top: 20px;
+      font-size: 0.95rem;
+    }
+
+    .login-link a {
+      color: #ffc107;
+      text-decoration: none;
+    }
+
+    .login-link a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 992px) {
+      .register-container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .divider {
+        display: none;
+      }
+
+      .rules-section {
+        padding-right: 0;
+        max-width: 100%;
+        margin-bottom: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 🌟 Navbar -->
+  <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="#">
+      <i class="fas fa-cube"></i> UrbanMint
+    </a>
+    <div class="ms-auto">
+      <a class="nav-link" href="login.html">Login</a>
+    </div>
+  </nav>
+
+  <!-- 🔄 Main Layout -->
+  <div class="register-container">
+
+    <!-- 📝 Rules Left -->
+    <div class="rules-section">
+      <h4>Registration Rules</h4>
+      <ul>
+        <li>✅ Username must be at least 3 characters long.</li>
+        <li>✅ Email must be valid and unique.</li>
+        <li>✅ Password must include letters, a number & symbol.</li>
+        <li>✅ You’ll need a connected wallet to access properties.</li>
+      </ul>
+    </div>
+
+    <!-- Vertical Divider -->
+    <div class="divider"></div>
+
+    <!-- 🔐 Register Box -->
+    <div class="register-box">
+      <h2>Create Account</h2>
+      <form id="registerForm">
+        <input type="text" class="form-control" id="username" placeholder="Username" required />
+        <input type="email" class="form-control" id="email" placeholder="Email" required />
+        <input type="password" class="form-control" id="password" placeholder="Password (min 8 chars)" required />
+        <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password" required />
+        <button type="submit" class="btn btn-warning">Register</button>
+      </form>
+      <div class="login-link">
+        Already registered? <a href="login.html">Login here</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS: Registration Script -->
+  <script>
+    document.getElementById("registerForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const username = document.getElementById("username").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
+
+      // Validation checks
+      if (username.length < 3) {
+        alert("Username must be at least 3 characters.");
+        return;
+      }
+
+      if (password.length < 8) {
+        alert("Password must be at least 8 characters.");
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        alert("Passwords do not match.");
+        return;
+      }
+
+      // Check if email already exists
+      const storedUsers = JSON.parse(localStorage.getItem("urbanmint_users")) || [];
+      const emailExists = storedUsers.find(user => user.email === email);
+      if (emailExists) {
+        alert("An account with this email already exists.");
+        return;
+      }
+
+      // Store new user data
+      storedUsers.push({ username, email, password });
+      localStorage.setItem("urbanmint_users", JSON.stringify(storedUsers));
+
+      alert("Registration successful!");
+      window.location.href = "login.html";  // Redirect to login page
+    });
+  </script>
+</body>
+</html>
